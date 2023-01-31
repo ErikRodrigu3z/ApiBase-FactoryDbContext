@@ -12,7 +12,7 @@ namespace Repository.BaseRepository
 
         public GenericRepository()
         {
-            MSSQL_context = new DbContextFactory("Data Source=DESKTOP-07MSP3L\\SQLEXPRESS;Initial Catalog=BaseApi_Test;User Id=sa;Password=Root1234;TrustServerCertificate=True").Create_EF_DbContext();
+            MSSQL_context = new DbContextFactory("Data Source=DESKTOP-07MSP3L\\SQLEXPRESS;Initial Catalog=BaseApi_Test;User Id=sa;Password=Root1234;TrustServerCertificate=True").Create_MMSQL_DbContext();
             MySQL_context = new DbContextFactory("Server=127.0.0.1; User ID=root; Password=Admin1234; Database=BaseApi_Test").Create_MySQL_DbContext();
 
         }
@@ -26,7 +26,9 @@ namespace Repository.BaseRepository
         public IEnumerable<T> GetAll()
         {
             var res = MSSQL_context.Set<T>().ToList();
-            return MySQL_context.Set<T>().ToList();
+            var res2 = MySQL_context.Set<T>().ToList();
+
+            return res.Union(res2);
         }
 
         public void Add(T entity)

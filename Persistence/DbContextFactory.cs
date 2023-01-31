@@ -12,7 +12,7 @@ namespace Persistence
             _connectionString = connectionString;
         }
 
-        public MSSQL_DbContext Create_EF_DbContext()
+        public MSSQL_DbContext Create_MMSQL_DbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<MSSQL_DbContext>();
             optionsBuilder.UseSqlServer(_connectionString);
